@@ -9,3 +9,8 @@ export enum HTTP_STATUS {
   UNAUTHORIZED = 401,
   NOT_FOUND = 404,
 }
+
+export enum UserStatus {
+  INACTIVE,
+  ACTIVE,
+}
