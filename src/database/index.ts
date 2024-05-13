@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm";
 import config from "../config/db";
 import { Logger } from "../utils/logger";
+import {} from "./models";
 
 export class DbConnection {
   private static _instance: DbConnection;

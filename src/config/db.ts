@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-// import { DbType, envData } from "../types";
+import { DbType, envData } from "../types";
 dotenv.config();
 
 const env = process.env.NODE_ENV || "development";
