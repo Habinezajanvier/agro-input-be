@@ -3,10 +3,10 @@ import db from "../database";
 import { DeleteResult, Repository } from "typeorm";
 import { ProductDTO, ReturnData, paginationDTO } from "../types";
 
-export default class UserService {
-  private userRepository: Repository<ProductEntity>;
+export default class ProductService {
+  private productRepository: Repository<ProductEntity>;
   constructor() {
-    this.userRepository = db.getRepository(ProductEntity);
+    this.productRepository = db.getRepository(ProductEntity);
   }
 
   /**
@@ -14,8 +14,8 @@ export default class UserService {
    * @returns
    */
   create = async (product: ProductDTO): Promise<ProductEntity> => {
-    const newUser = this.userRepository.create(product);
-    return await this.userRepository.save(newUser);
+    const newProduct = this.productRepository.create(product);
+    return await this.productRepository.save(newProduct);
   };
 
   /**
@@ -27,14 +27,14 @@ export default class UserService {
   ): Promise<ReturnData<ProductEntity>> => {
     const { page, pageSize } = pagination;
     const skip = (page - 1) * pageSize;
-    const content = await this.userRepository.find({
+    const content = await this.productRepository.find({
       order: {
         createdAt: "DESC",
       },
       take: pageSize,
       skip,
     });
-    const count = await this.userRepository.count();
+    const count = await this.productRepository.count();
     const pages = page ? Math.ceil(count / pageSize) : undefined;
     return { content, count, pages };
   };
@@ -45,7 +45,7 @@ export default class UserService {
    * @returns
    */
   getOne = async (id: number): Promise<ProductEntity | null> => {
-    return await this.userRepository.findOne({ where: { id } });
+    return await this.productRepository.findOne({ where: { id } });
   };
 
   /**
@@ -58,9 +58,11 @@ export default class UserService {
     id: number,
     data: ProductDTO
   ): Promise<ProductEntity | null> => {
-    const user = (await this.userRepository.findOneBy({ id })) as ProductEntity;
-    this.userRepository.merge(user, data);
-    return await this.userRepository.save(user);
+    const user = (await this.productRepository.findOneBy({
+      id,
+    })) as ProductEntity;
+    this.productRepository.merge(user, data);
+    return await this.productRepository.save(user);
   };
 
   /**
@@ -69,7 +71,7 @@ export default class UserService {
    * @returns
    */
   delete = async (id: number): Promise<DeleteResult | null> => {
-    const result = await this.userRepository.delete(id);
+    const result = await this.productRepository.delete(id);
     return result.affected ? result : null;
   };
 }

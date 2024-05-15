@@ -32,7 +32,19 @@ export default class UserService {
    * @returns
    */
   getOne = async (id: number): Promise<UserEntity | null> => {
-    return await this.userRepository.findOne({ where: { id } });
+    return await this.userRepository.findOne({
+      where: { id },
+      select: [
+        "id",
+        "firstName",
+        "lastName",
+        "email",
+        "phoneNumber",
+        "status",
+        "createdAt",
+        "updatedAt",
+      ],
+    });
   };
 
   /**

@@ -1,7 +1,12 @@
 // import { CardStatus } from "./config/constant";
 import { NextFunction, request } from "express";
-import { HTTP_STATUS, ProductType } from "./config/constant";
-import { UserEntity } from "./database/models";
+import { HTTP_STATUS, OrderStatus, ProductType } from "./config/constant";
+import {
+  LandLocation,
+  OrderEntity,
+  ProductEntity,
+  UserEntity,
+} from "./database/models";
 
 declare type DbType = "mysql" | "postgres" | "mssql";
 
@@ -36,6 +41,7 @@ interface UserDTO {
   firstName: string;
   lastName: string;
   email: string;
+  phoneNumber: string;
   password?: string;
 }
 interface ProductDTO {
@@ -51,7 +57,27 @@ interface AuthData extends UserEntity {
   token: string;
 }
 
+interface OrderDTO {
+  user: UserEntity;
+  status?: OrderStatus;
+  location: LandLocation;
+  landSize: number;
+}
+
+interface ProductOrderDTO {
+  product: ProductEntity;
+  order: OrderEntity;
+  quantity: number;
+  amount: number;
+}
+
 interface paginationDTO {
   page: number;
   pageSize: number;
+}
+
+declare module "express" {
+  export interface Request {
+    user?: any;
+  }
 }

@@ -19,3 +19,9 @@ export enum ProductType {
   SEED = 1,
   FERTILIZER = 2,
 }
+
+export enum OrderStatus {
+  PENDING,
+  PAID,
+  DELIVERED,
+}

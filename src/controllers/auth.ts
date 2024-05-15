@@ -3,6 +3,7 @@ import UserService from "../services/user";
 import { comparePassword, encode, hashPassword } from "../helpers";
 import { AuthData, ResponseData, UserDTO } from "../types";
 import { HTTP_STATUS } from "../config/constant";
+import { UserEntity } from "../database/models";
 
 /**
  * Auth controller
@@ -16,8 +17,10 @@ export default class AuthController {
    * @param res
    * @returns
    */
-  public signup = async (req: Request): Promise<ResponseData<AuthData>> => {
-    const { firstName, lastName, email, password } = req.body;
+  public signup = async (
+    req: Request
+  ): Promise<ResponseData<Record<"token", string>>> => {
+    const { firstName, lastName, email, password, phoneNumber } = req.body;
 
     const userExist = await this.user.checkUser(email);
 
@@ -34,6 +37,7 @@ export default class AuthController {
       firstName,
       lastName,
       email,
+      phoneNumber,
       password: hashedPassword,
     };
 
@@ -46,7 +50,6 @@ export default class AuthController {
       message: "Account created successfully",
       data: {
         token,
-        ...newUser,
       },
     };
   };
@@ -57,7 +60,9 @@ export default class AuthController {
    * @param res
    * @returns
    */
-  public login = async (req: Request): Promise<ResponseData<AuthData>> => {
+  public login = async (
+    req: Request
+  ): Promise<ResponseData<Record<"token", string>>> => {
     const { email, password } = req.body;
     const userExist = await this.user.checkUser(email);
 
@@ -75,9 +80,30 @@ export default class AuthController {
       error: false,
       message: "User logged successfully",
       data: {
-        ...userExist,
         token,
       },
     };
+  };
+
+  /**
+   * Get profile of the logged in user
+   * @param req
+   * @returns
+   */
+  public profile = async (req: Request): Promise<ResponseData<UserEntity>> => {
+    const data = await this.user.getOne(+req.user.id);
+
+    return data
+      ? {
+          status: HTTP_STATUS.SUCCESS,
+          error: false,
+          message: "Success",
+          data,
+        }
+      : {
+          status: HTTP_STATUS.NOT_FOUND,
+          error: true,
+          message: "No user fuund",
+        };
   };
 }
