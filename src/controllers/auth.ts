@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import UserService from "../services/user";
 import { comparePassword, encode, hashPassword } from "../helpers";
-import { AuthData, ResponseData, ReturnData, UserDTO } from "../types";
+import { AuthData, ResponseData, UserDTO } from "../types";
 import { HTTP_STATUS } from "../config/constant";
 
 /**

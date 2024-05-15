@@ -14,3 +14,8 @@ export enum UserStatus {
   INACTIVE,
   ACTIVE,
 }
+
+export enum ProductType {
+  SEED = 1,
+  FERTILIZER = 2,
+}

@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import auth from "./auth";
+import products from "./product";
 
 const routes = Router();
 
