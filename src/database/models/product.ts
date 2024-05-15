@@ -1,6 +1,7 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, ManyToMany } from "typeorm";
 import { BaseColumnSchema } from "./base";
 import { ProductType } from "../../config/constant";
+import { OrderEntity } from "./order";
 
 @Entity({ name: "products" })
 export class ProductEntity extends BaseColumnSchema {
@@ -14,11 +15,20 @@ export class ProductEntity extends BaseColumnSchema {
   type: ProductType;
 
   @Column()
+  price: number;
+
+  @Column()
   available: number;
 
-  @Column()
+  @Column({ nullable: true })
   picture: string;
 
-  @Column()
+  @Column("text", {
+    array: true,
+    nullable: true,
+  })
   avatars: string[];
+
+  @ManyToMany(() => OrderEntity)
+  orders: OrderEntity[];
 }

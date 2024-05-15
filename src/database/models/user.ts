@@ -13,6 +13,9 @@ export class UserEntity extends BaseColumnSchema {
   @Column({ unique: true })
   email: string;
 
+  @Column()
+  phoneNumber: string;
+
   @Column({
     type: "enum",
     enum: UserStatus,
