@@ -1,6 +1,6 @@
 // import { CardStatus } from "./config/constant";
 import { NextFunction, request } from "express";
-import { HTTP_STATUS } from "./config/constant";
+import { HTTP_STATUS, ProductType } from "./config/constant";
 import { UserEntity } from "./database/models";
 
 declare type DbType = "mysql" | "postgres" | "mssql";
@@ -38,7 +38,20 @@ interface UserDTO {
   email: string;
   password?: string;
 }
+interface ProductDTO {
+  name: string;
+  available: number;
+  type: ProductType;
+  picture?: string;
+  avatars?: string[];
+  createdBy?: number;
+}
 
 interface AuthData extends UserEntity {
   token: string;
+}
+
+interface paginationDTO {
+  page: number;
+  pageSize: number;
 }
