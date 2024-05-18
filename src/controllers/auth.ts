@@ -66,8 +66,15 @@ export default class AuthController {
     const { email, password } = req.body;
     const userExist = await this.user.checkUser(email);
 
-    const validPass = await comparePassword(password, userExist!.password);
-    if (!userExist || !validPass)
+    if (!userExist)
+      return {
+        status: HTTP_STATUS.FORBIDDEN,
+        error: true,
+        message: "Email or password exist",
+      };
+
+    const validPass = await comparePassword(password, userExist.password);
+    if (!validPass)
       return {
         status: HTTP_STATUS.FORBIDDEN,
         error: true,

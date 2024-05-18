@@ -1,7 +1,12 @@
 import { ProductEntity } from "../database/models";
 import db from "../database";
 import { DeleteResult, Repository } from "typeorm";
-import { ProductDTO, ReturnData, paginationDTO } from "../types";
+import {
+  ProductDTO,
+  ProductPagination,
+  ReturnData,
+  paginationDTO,
+} from "../types";
 
 export default class ProductService {
   private productRepository: Repository<ProductEntity>;
@@ -23,18 +28,22 @@ export default class ProductService {
    * @returns
    */
   getAll = async (
-    pagination: paginationDTO
+    pagination: ProductPagination
   ): Promise<ReturnData<ProductEntity>> => {
     const { page, pageSize } = pagination;
     const skip = (page - 1) * pageSize;
-    const content = await this.productRepository.find({
-      order: {
-        createdAt: "DESC",
-      },
-      take: pageSize,
-      skip,
-    });
-    const count = await this.productRepository.count();
+    const [content, count] = await Promise.all([
+      this.productRepository.find({
+        where: { type: pagination.category },
+        order: {
+          name: "ASC",
+        },
+        take: pageSize,
+        skip,
+      }),
+      this.productRepository.count({ where: { type: pagination.category } }),
+    ]);
+
     const pages = page ? Math.ceil(count / pageSize) : undefined;
     return { content, count, pages };
   };
