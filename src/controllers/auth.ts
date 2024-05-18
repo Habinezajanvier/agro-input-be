@@ -70,7 +70,7 @@ export default class AuthController {
       return {
         status: HTTP_STATUS.FORBIDDEN,
         error: true,
-        message: "Email or password exist",
+        message: "Email or password doesn't exist",
       };
 
     const validPass = await comparePassword(password, userExist.password);

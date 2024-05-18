@@ -12,6 +12,10 @@ export class Logger {
       date.getFullYear(),
     ];
 
+    if (!fs.existsSync(path.resolve("logs"))) {
+      fs.mkdirSync(path.resolve("logs"));
+    }
+
     const logFile = path.join(process.cwd(), "logs");
     this.logStream = fs.createWriteStream(
       path.join(logFile, `${year}-${month + 1}-${day}.log`),
