@@ -2,7 +2,7 @@ import { Request } from "express";
 import { ProductEntity } from "../database/models";
 import ProductService from "../services/product";
 import { ProductDTO, ResponseData, ReturnData } from "../types";
-import { HTTP_STATUS } from "../config/constant";
+import { HTTP_STATUS, ProductType } from "../config/constant";
 
 export default class ProductController {
   constructor(private product: ProductService) {}
@@ -35,10 +35,16 @@ export default class ProductController {
   ): Promise<ResponseData<ReturnData<ProductEntity>>> => {
     const page = req.query.page!;
     const pageSize = req.query.pageSize!;
+    const category = req.query.category!;
+
+    // const productType: ProductType = category ? (category as unknown as ProductType) :
 
     const { content, pages, count } = await this.product.getAll({
       page: page ? +page : 1,
       pageSize: pageSize ? +pageSize : 12,
+      category: Number(category)
+        ? (category as unknown as ProductType)
+        : undefined,
     });
 
     return content.length

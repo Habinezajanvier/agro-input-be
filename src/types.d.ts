@@ -76,6 +76,10 @@ interface paginationDTO {
   pageSize: number;
 }
 
+interface ProductPagination extends paginationDTO {
+  category?: ProductType;
+}
+
 declare module "express" {
   export interface Request {
     user?: any;
