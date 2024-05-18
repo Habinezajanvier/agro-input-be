@@ -9,7 +9,7 @@ export class DbConnection {
   private static dbConnection = new DataSource({
     type: config.type,
     logging: false,
-    synchronize: true,
+    synchronize: false,
     host: config.host,
     port: Number(config.port as string),
     username: config.username,
