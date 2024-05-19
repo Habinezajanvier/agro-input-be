@@ -38,8 +38,10 @@ export class DbConnection {
     try {
       const connection = await DbConnection.dbConnection.initialize();
       this.logger.log("db-connection " + connection.options.database);
+      console.log("==connection==>", connection.options.database);
     } catch (error) {
       this.logger.error(`db-error: ${error}`);
+      console.log({ error });
     }
   };
 
