@@ -3,6 +3,9 @@ import { DbType, envData } from "../types";
 dotenv.config();
 
 const env = process.env.NODE_ENV || "development";
+
+console.log("====here is the environment===>", process.env.NODE_ENV);
+
 const development = {
   username: process.env.DB_USER_DEV,
   password: process.env.DB_PASS_DEV,
@@ -33,7 +36,7 @@ const production = {
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   name: process.env.DB_NAME,
-  type: (process.env.DB_TYPE_DEV as DbType) || "postgres",
+  type: (process.env.DB_TYPE as DbType) || "postgres",
 };
 
 const config: {
