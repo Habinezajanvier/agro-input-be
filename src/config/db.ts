@@ -4,20 +4,6 @@ dotenv.config();
 
 const env = process.env.NODE_ENV || "development";
 
-console.log("====here is the environment===>", process.env.NODE_ENV);
-console.log("===env variables===>", {
-  username: process.env.DB_USER_DEV,
-  password: process.env.DB_PASS_DEV,
-  host: process.env.DB_HOST_DEV,
-  port: process.env.DB_PORT_DEV,
-  name: process.env.DB_NAME_DEV,
-  username_: process.env.DB_USER,
-  password_: process.env.DB_PASSWORD,
-  host_: process.env.DB_HOST,
-  port_: process.env.DB_PORT,
-  name_: process.env.DB_NAME,
-});
-
 const development = {
   username: process.env.DB_USER_DEV,
   password: process.env.DB_PASS_DEV,
