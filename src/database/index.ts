@@ -16,9 +16,9 @@ export class DbConnection {
     database: config.name,
     migrations: [__dirname + "/migrations/"],
     entities: [__dirname + "/models/*{.js,.ts}"],
-    options: {
-      encrypt: false,
-    },
+    // options: {
+    //   encrypt: false,
+    // },
   });
 
   private constructor() {}
