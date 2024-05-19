@@ -11,6 +11,11 @@ console.log("===env variables===>", {
   host: process.env.DB_HOST_DEV,
   port: process.env.DB_PORT_DEV,
   name: process.env.DB_NAME_DEV,
+  username_: process.env.DB_USER,
+  password_: process.env.DB_PASSWORD,
+  host_: process.env.DB_HOST,
+  port_: process.env.DB_PORT,
+  name_: process.env.DB_NAME,
 });
 
 const development = {
