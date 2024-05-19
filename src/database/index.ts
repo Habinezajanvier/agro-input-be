@@ -1,7 +1,6 @@
 import { DataSource } from "typeorm";
 import config from "../config/db";
 import { Logger } from "../utils/logger";
-import {} from "./models";
 
 export class DbConnection {
   private static _instance: DbConnection;
@@ -41,6 +40,7 @@ export class DbConnection {
       console.log("==connection==>", connection.options.database);
     } catch (error) {
       this.logger.error(`db-error: ${error}`);
+      console.log({ config });
       console.log({ error });
     }
   };
