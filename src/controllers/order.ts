@@ -26,7 +26,6 @@ export default class OrderController {
     const products = await Promise.all(
       body.products.map(async (product: any) => {
         const checkProduct = await this.product.getOne(product.id);
-        console.log({ checkProduct });
         const productQuantity: number =
           product.quantity < checkProduct!.available
             ? product.quantity
@@ -69,7 +68,7 @@ export default class OrderController {
     return {
       status: HTTP_STATUS.CREATED,
       error: false,
-      message: "Product created successfully",
+      message: "Order created successfully",
       data,
     };
   };
