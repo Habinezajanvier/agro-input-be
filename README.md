@@ -1,4 +1,4 @@
-# agro-input-be ![check-code-coverage](https://img.shields.io/badge/code--coverage-80%-brightgreen)
+# agro-input-be
 
 Agro-input provides essential online services that easy the process of ordering seeds and fertilizers to farmers accoring to the size of their land.
 
