@@ -11,7 +11,7 @@ Agro-input provides essential online services that easy the process of ordering 
 - Postgres ad DB
 
 ## Archtecture
-This projects levarages MVP patterns but also leveraging decoupling of classes so to allow further extention of the project without changing everthing of the project,
+This projects levarages MVC patterns but also leveraging decoupling of classes so to allow further extention of the project without changing everthing of the project,
 The project also uses layered archtecture where a request passes from endpoint to controller and then to the database through repositories,
 On Database Querying, we are using Repository pattern to centralize the query construction code, providing a more object-oriented way of communicating with a collection of objects
 
